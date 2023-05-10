@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Form Validation </title>
+    <style>
+      /* Style for error messages */
+      .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+
+      /* Style for error input fields */
+      .error {
+        border: 2px solid red;
+      }
+
+      /* Style for valid input fields */
+      .valid {
+        border: 2px solid green;
+      }
+    </style>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <h1>Form Validation </h1>
+    <form>
+      
+      <input type="text" id="fname" name="fname" placeholder="First Name" required>
+      <div id="fname-error" class="error-message"></div>
+
+      
+      <input type="text" id="lname" name="lname" placeholder="Last Name" required>
+      <div id="lname-error" class="error-message"></div>
+
+      
+      <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Phone Number" required>
+      <div id="phone-error" class="error-message"></div>
+
+    
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <div id="email-error" class="error-message"></div>
+
+      
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <div id="password-error" class="error-message"></div>
+
+      <label for="agree" id="agree">I agree to the given Terms and Conditions:</label>
+      <input type="checkbox" id="agree" name="agree" required>
+      <div id="agree-error" class="error-message"></div>
+
+      <input type="button" value="Submit" onclick="validateForm()">
+    </form>
+
+    <script>
+      function validateForm() {
+        // Get form values
+        const fname = document.getElementById("fname").value.trim();
+        const lname = document.getElementById("lname").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const agree = document.getElementById("agree").checked;
+
+        // Validate first name
+        if (fname === "") {
+          document.getElementById("fname").classList.add("error");
+          document.getElementById("fname-error").innerHTML = "First name cannot be empty";
+        } else {
+          document.getElementById("fname").classList.remove("error");
+          document.getElementById("fname-error").innerHTML = "";
+        }
+
+        // Validate last name
+        if (lname === "") {
+          document.getElementById("lname").classList.add("error");
+          document.getElementById("lname-error").innerHTML = "Last name cannot be empty";
+        } else {
+          document.getElementById("lname").classList.remove("error");
+          document.getElementById("lname-error").innerHTML = "";
+        }
+
+        // Validate phone number
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phone)) {
+          document.getElementById("phone").classList.add("error");
+          document.getElementById("phone-error").innerHTML = "Please enter a valid phone number";
+        } else {
+          document.getElementById("phone").classList.remove("error");
+          document.getElementById("phone-error").innerHTML = "";
+        }
+
+        // Validate email
+        const
+        emailRegex = /^\S+@\S+\.\S+$/;
+    if (!emailRegex.test(email)) {
+      document.getElementById("email").classList.add("error");
+      document.getElementById("email-error").innerHTML = "Please enter a valid email address";
+    } else {
+      document.getElementById("email").classList.remove("error");
+      document.getElementById("email-error").innerHTML = "";
+    }
+
+    // Validate password
+    const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      document.getElementById("password").classList.add("error");
+      document.getElementById("password-error").innerHTML = "Password must be at least 8 characters long and contain at least one numeric value and one uppercase letter";
+    } else {
+      document.getElementById("password").classList.remove("error");
+      document.getElementById("password-error").innerHTML = "";
+    }
+
+    // Validate terms and conditions
+    if (!agree) {
+      document.getElementById("agree").classList.add("error");
+      document.getElementById("agree-error").innerHTML = "Please agree to the terms and conditions";
+    } else {
+      document.getElementById("agree").classList.remove("error");
+      document.getElementById("agree-error").innerHTML = "";
+    }
+
+    // Check if form is valid
+    if (fname !== "" && lname !== "" && phoneRegex.test(phone) && emailRegex.test(email) && passwordRegex.test(password) && agree) {
+      console.log("Form submitted successfully");
+      console.log("First Name:", fname);
+      console.log("Last Name:",lname);
+      console.log("Email :", email);
+      
+      
+      alert("Form submitted successfully");
+    }
+  }
+</script>
+</body>
+</html>
